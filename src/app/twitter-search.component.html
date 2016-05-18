@@ -1,6 +1,8 @@
 <h1>
   {{title}}
   <ul>
-    <li *ngFor="let article of articles; #i = index">{{article.id}}</li>
+    <li *ngFor="let article of articles;  let i = index">
+      <a [href]="article.webUrl">{{article.webTitle}}</a>
+    </li>
   </ul>
 </h1>

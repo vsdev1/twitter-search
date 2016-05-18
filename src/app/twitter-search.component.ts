@@ -10,11 +10,11 @@ import {TwitterService, Article} from './twitter.service';
 })
 export class TwitterSearchAppComponent {
   title = 'twitter-search works!';
-  
+
   articles: Array<Article>;
 
   constructor(twitterService:TwitterService) {
-    twitterService.getArticles('football').subscribe(
+    twitterService.getArticles('merkel').subscribe(
       articles => {
         console.log('articles: ', articles);
         this.articles = articles;

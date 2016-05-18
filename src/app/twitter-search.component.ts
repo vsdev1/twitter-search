@@ -22,13 +22,12 @@ export class TwitterSearchAppComponent {
 
   constructor(private twitterService:TwitterService) {
     this.input = new Subject<string>();
-    
+
     this.articles = this.input
       .map((val)=>val)
       .filter((term)=>term.length>3)
       .debounceTime(1000)
       .map((term)=>this.twitterService.getArticles(term));
-    
   }
 
   filter(searchValue:string) {

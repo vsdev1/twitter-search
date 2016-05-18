@@ -13,14 +13,25 @@ export class TwitterSearchAppComponent {
 
   articles: Array<Article>;
 
-  constructor(twitterService:TwitterService) {
-    twitterService.getArticles('merkel').subscribe(
-      articles => {
-        console.log('articles: ', articles);
-        this.articles = articles;
-      },
-      error => console.error('Error: ' + error),
-      () => console.log('Completed!')
-    );
+  searchTerm: string;
+
+  constructor(private twitterService:TwitterService) {
+  }
+
+  public searchArticle(){
+      this.twitterService.getArticles(this.searchTerm).subscribe(
+        articles => {
+          console.log('articles: ', articles);
+          this.articles = articles;
+        },
+        error => console.error('Error: ' + error),
+              () => console.log('Completed!')
+          );
+      }
+
+  filter() {
+    if (this.searchTerm.length > 1) {
+      this.searchArticle();
+    }
   }
 }

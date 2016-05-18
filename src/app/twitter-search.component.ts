@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['twitter-search.component.css']
 })
 export class TwitterSearchAppComponent {
-  title = 'twitter-search works!';
+  title = 'twitter-search works fine !';
 }

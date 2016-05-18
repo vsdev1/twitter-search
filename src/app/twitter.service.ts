@@ -16,7 +16,7 @@ export class TwitterService {
 
 }
 
-class Article {
+export class Article {
   id:string;
   webTitle:string;
   webUrl:string;

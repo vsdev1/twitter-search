@@ -1,3 +1,6 @@
 <h1>
   {{title}}
+  <ul>
+    <li *ngFor="let article of articles; #i = index">{{article.id}}</li>
+  </ul>
 </h1>

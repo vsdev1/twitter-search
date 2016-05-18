@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import {TwitterService, Article} from './twitter.service';
+import {Subject} from "rxjs/Subject";
+import {Observable} from "rxjs/observable";
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/flatMap';
 
 @Component({
   moduleId: module.id,
@@ -11,27 +16,22 @@ import {TwitterService, Article} from './twitter.service';
 export class TwitterSearchAppComponent {
   title = 'twitter-search works!';
 
-  articles: Array<Article>;
-
   searchTerm: string;
+  input: Subject<string>;
+  articles: Observable<Array<Article>>;
 
   constructor(private twitterService:TwitterService) {
+    this.input = new Subject<string>();
+    
+    this.articles = this.input
+      .map((val)=>val)
+      .filter((term)=>term.length>3)
+      .debounceTime(1000)
+      .map((term)=>this.twitterService.getArticles(term));
+    
   }
 
-  private searchArticle(){
-      this.twitterService.getArticles(this.searchTerm).subscribe(
-        articles => {
-          console.log('articles: ', articles);
-          this.articles = articles;
-        },
-        error => console.error('Error: ' + error),
-              () => console.log('Completed!')
-          );
-      }
-
-  filter() {
-    if (this.searchTerm.length > 1) {
-      this.searchArticle();
-    }
+  filter(searchValue:string) {
+    this.input.next(searchValue);
   }
 }

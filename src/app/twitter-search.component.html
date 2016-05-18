@@ -1,11 +1,11 @@
 <h1>
   {{title}}
 
-  <input id="article" type="text" [(ngModel)]=searchTerm (keyup)=filter()>
+  <input id="article" type="text" (keyup)=filter($event.target.value)>
   <label for="article">Article</label>
 
   <ul>
-    <li *ngFor="let article of articles; let i = index">
+    <li *ngFor="let article of articles | async">
       <a [href]="article.webUrl">{{article.webTitle}}</a>
     </li>
   </ul>

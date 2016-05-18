@@ -18,7 +18,7 @@ export class TwitterSearchAppComponent {
   constructor(private twitterService:TwitterService) {
   }
 
-  public searchArticle(){
+  private searchArticle(){
       this.twitterService.getArticles(this.searchTerm).subscribe(
         articles => {
           console.log('articles: ', articles);

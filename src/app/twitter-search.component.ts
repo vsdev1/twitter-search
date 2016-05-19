@@ -5,6 +5,7 @@ import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/do';
 
 @Component({
@@ -23,12 +24,19 @@ export class TwitterSearchAppComponent {
 
   constructor(private twitterService:TwitterService) {
     this.input = new Subject<string>();
+    
+    const emptySearchResults = this.input
+      .filter((term) => term.length <= 3)
+      .map((term)=>[]);
 
     this.articles = this.input
       .do((term)=>console.log('term:', term))
       .filter((term)=>term.length > 3)
-      .debounceTime(1000)
-      .mergeMap((term)=>this.twitterService.getArticles(term));
+      .debounceTime(100)
+      .mergeMap((term)=>this.twitterService.getArticles(term))
+      .merge(emptySearchResults);
+
+
   }
 
   filter(searchValue:string) {

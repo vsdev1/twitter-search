@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import {TwitterService, Article} from './twitter.service';
 import {Subject} from "rxjs/Subject";
-import {Observable} from "rxjs/observable";
+import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/flatMap';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/do';
 
 @Component({
   moduleId: module.id,
@@ -24,10 +25,10 @@ export class TwitterSearchAppComponent {
     this.input = new Subject<string>();
 
     this.articles = this.input
-      .map((val)=>val)
-      .filter((term)=>term.length>3)
+      .do((term)=>console.log('term:', term))
+      .filter((term)=>term.length > 3)
       .debounceTime(1000)
-      .map((term)=>this.twitterService.getArticles(term));
+      .mergeMap((term)=>this.twitterService.getArticles(term));
   }
 
   filter(searchValue:string) {

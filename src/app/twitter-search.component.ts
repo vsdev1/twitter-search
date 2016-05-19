@@ -25,18 +25,18 @@ export class TwitterSearchAppComponent {
   constructor(private twitterService:TwitterService) {
     this.input = new Subject<string>();
     
+    const shortTermFilter = (term) => term.length <= 3; 
+    
     const emptySearchResults = this.input
-      .filter((term) => term.length <= 3)
+      .filter(shortTermFilter)
       .map((term)=>[]);
 
     this.articles = this.input
       .do((term)=>console.log('term:', term))
-      .filter((term)=>term.length > 3)
+      .filter((term)=>!shortTermFilter(term))
       .debounceTime(100)
       .mergeMap((term)=>this.twitterService.getArticles(term))
       .merge(emptySearchResults);
-
-
   }
 
   filter(searchValue:string) {

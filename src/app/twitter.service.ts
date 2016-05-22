@@ -24,10 +24,13 @@ export class Article {
   id:string;
   webTitle:string;
   webUrl:string;
+  sectionName:string;
+
 
   constructor(apiArticle:any) {
     this.id = apiArticle.id;
     this.webTitle = apiArticle.webTitle;
     this.webUrl = apiArticle.webUrl;
+    this.sectionName = apiArticle.sectionName;
   }
 }

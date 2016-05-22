@@ -1,12 +1,16 @@
-<h1>
-  {{title}}
+<div class="container-fluid">
+    <h1>
+        <a href="http://content.guardianapis.com/search?api-key=test">{{title}}</a>
+    </h1>
+    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 
-  <input id="article" type="text" (keyup)=filter($event.target.value)>
-  <label for="article">Article</label>
+    <label for="article">Search Articles</label>
+    <input id="article" type="text" (keyup)=filter($event.target.value)>
 
-  <ul>
-    <li *ngFor="let article of articles | async">
-      <a [href]="article.webUrl">{{article.webTitle}}</a>
-    </li>
-  </ul>
-</h1>
+    <br/>
+    <h2>Found Articles:</h2>
+        <div *ngFor="let article of articles | async" class="list-group">
+            <a [href]="article.webUrl" class="list-group-item col-md-8" target="_blank">{{article.webTitle}}</a>
+            <span class="list-group-item col-md-4">section: {{article.sectionName}}</span>
+        </div>
+</div>

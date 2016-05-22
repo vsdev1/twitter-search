@@ -25,6 +25,7 @@ const barrels: string[] = [
 
   // Thirdparty barrels.
   'rxjs',
+  'bootstrap/sass',
 
   // App specific barrels.
   'app',

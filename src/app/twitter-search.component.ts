@@ -16,7 +16,7 @@ import 'rxjs/add/operator/do';
   providers: [TwitterService]
 })
 export class TwitterSearchAppComponent {
-  title = 'twitter-search works!';
+  title = 'Search the Guardian API...';
 
   searchTerm: string;
   input: Subject<string>;
